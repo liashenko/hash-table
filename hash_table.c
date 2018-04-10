@@ -21,8 +21,7 @@ hash_table* init(const int capacity) {
     }
     return dict;
 }
-
-/** free heap memory */
+/** free heap memory used for dictionary */
 void destruct(hash_table* dict) {
     int i = 0;
     for (i = 0; i < dict->capacity; ++i) {
@@ -31,7 +30,8 @@ void destruct(hash_table* dict) {
     }
     free(dict->items);
 }
-
+/** insert into dictionary value for the key */
+/** @TODO: implement key chaining to resolve hash collision */
 int insert(hash_table* dict, const char* key, const char* value) {
     unsigned int index = get_hash(key, PRIME_1, dict->capacity);
     if (dict->items[index] != NULL) {
@@ -45,7 +45,7 @@ int insert(hash_table* dict, const char* key, const char* value) {
     }
     return 1;
 }
-
+/** return dictionary value for the key */
 char* get(hash_table* dict, const char* key) {
     unsigned int index = get_hash(key, PRIME_1, dict->capacity);
     if (dict->items[index] == NULL) {
@@ -53,7 +53,7 @@ char* get(hash_table* dict, const char* key) {
     }
     return dict->items[index]->value;
 }
-
+/** remove key from hash_table */
 int delete(hash_table* dict, const char* key) {
     unsigned int index = get_hash(key, PRIME_1, dict->capacity);
     if (dict->items[index] != NULL) {
@@ -65,12 +65,13 @@ int delete(hash_table* dict, const char* key) {
 }
 
 int main() {
+    /** create dictionary */
     hash_table* dict = init(DEFAULT_CAPACITY);
     if (dict == NULL) {
         printf("allocation error\n");
         return EXIT_FAILURE;
     }
-    /** tests */
+    /** testing dictionary */
     char *tests[] = {
         "test1",
         "test2",
