@@ -3,19 +3,22 @@
 #include <string.h>
 
 #define DEFAULT_CAPACITY 1000
+#define PRIME_1 5183
 
 typedef struct {
     char *key;
     char *value;
 } item;
 
-item **items;
-int capacity = DEFAULT_CAPACITY;
-int size = 0;
+typedef struct {
+    item **items;
+    int capacity;
+    int size;
+} hash_table;
 
-int insert(char* key, char* value);
-int update(char* key, char* value);
-int delete(char* key);
-char* get(char* key);
+unsigned int get_hash(const char* key, const int prime, const int mod);
 
-unsigned int get_hash(char* key);
+hash_table* init(const int capacity);
+int insert(hash_table* dict, const char* key, const char* value);
+char* get(hash_table* dict, const char* key);
+int delete(hash_table* dict, const char* key);
