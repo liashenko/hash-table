@@ -16,7 +16,7 @@ unsigned int prehash(const char *key, const int prime, const int mod) {
 /**
  * allocate memory for the hash table
  **/
-hash_table *create(const int capacity) {
+hash_table *create_hash_table(const int capacity) {
   hash_table *dict = malloc(sizeof(hash_table));
   if (dict == NULL) {
     printf("allocation error\n");
@@ -34,7 +34,7 @@ hash_table *create(const int capacity) {
 /**
  * free memory used by the hash table
  **/
-void destruct(hash_table *dict) {
+void delete_hash_table(hash_table *dict) {
   int i = 0;
   for (i = 0; i < dict->capacity; ++i) {
     if (dict->items[i] != NULL)
@@ -89,9 +89,8 @@ char *search(hash_table *dict, const char *key) {
 }
 
 int main() {
-  /** create dictionary */
-  hash_table *dict = create(DEFAULT_CAPACITY);
-  /** testing dictionary */
+  hash_table *dict = create_hash_table(DEFAULT_CAPACITY);
+  /** testing hash table */
   char *tests[] = {"test1", "test2", "test3", "test4",
                    "test5", "test6", "test7"};
   int i = 0;
@@ -106,6 +105,6 @@ int main() {
     printf("%s\n", search(dict, tests[i]));
   }
   printf("%s\n", search(dict, "none"));
-  destruct(dict);
+  delete_hash_table(dict);
   return EXIT_SUCCESS;
 }

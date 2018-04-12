@@ -18,8 +18,8 @@ typedef struct {
 
 unsigned int prehash(const char *key, const int prime, const int mod);
 
-hash_table *create(const int capacity);
-void destruct(hash_table *dict);
+hash_table *create_hash_table(const int capacity);
+void delete_hash_table(hash_table *dict);
 
 void insert(hash_table *dict, const char *key, const char *value);
 void delete (hash_table *dict, const char *key);
