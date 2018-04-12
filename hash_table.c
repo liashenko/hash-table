@@ -19,13 +19,15 @@ unsigned int prehash(const char *key, const int prime, const int mod) {
 hash_table *create(const int capacity) {
   hash_table *dict = malloc(sizeof(hash_table));
   if (dict == NULL) {
-    return NULL;
+    printf("allocation error\n");
+    exit(EXIT_FAILURE);
   }
   dict->size = 0;
   dict->capacity = capacity;
   dict->items = malloc(dict->capacity * sizeof(item *));
   if (dict->items == NULL) {
-    return NULL;
+    printf("allocation error\n");
+    exit(EXIT_FAILURE);
   }
   return dict;
 }
@@ -51,6 +53,10 @@ void insert(hash_table *dict, const char *key, const char *value) {
     dict->items[index]->value = strdup(value);
   } else {
     dict->items[index] = malloc(sizeof(item));
+    if (dict->items[index] == NULL) {
+      printf("allocation error\n");
+      exit(EXIT_FAILURE);
+    }
     dict->items[index]->key = strdup(key);
     dict->items[index]->value = strdup(value);
     ++dict->size;
@@ -76,6 +82,7 @@ void delete (hash_table *dict, const char *key) {
 char *search(hash_table *dict, const char *key) {
   unsigned int index = prehash(key, PRIME_1, dict->capacity);
   if (dict->items[index] == NULL) {
+    printf("allocation error\n");
     return NULL;
   }
   return dict->items[index]->value;
@@ -84,10 +91,6 @@ char *search(hash_table *dict, const char *key) {
 int main() {
   /** create dictionary */
   hash_table *dict = create(DEFAULT_CAPACITY);
-  if (dict == NULL) {
-    printf("allocation error\n");
-    return EXIT_FAILURE;
-  }
   /** testing dictionary */
   char *tests[] = {"test1", "test2", "test3", "test4",
                    "test5", "test6", "test7"};
