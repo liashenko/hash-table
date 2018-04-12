@@ -6,19 +6,21 @@
 #define PRIME_1 5183
 
 typedef struct {
-    char *key;
-    char *value;
+  char *key;
+  char *value;
 } item;
 
 typedef struct {
-    item **items;
-    int capacity;
-    int size;
+  item **items;
+  int capacity;
+  int size;
 } hash_table;
 
-unsigned int get_hash(const char* key, const int prime, const int mod);
+unsigned int prehash(const char *key, const int prime, const int mod);
 
-hash_table* init(const int capacity);
-int insert(hash_table* dict, const char* key, const char* value);
-char* get(hash_table* dict, const char* key);
-int delete(hash_table* dict, const char* key);
+hash_table *create(const int capacity);
+void destruct(hash_table *dict);
+
+void insert(hash_table *dict, const char *key, const char *value);
+void delete (hash_table *dict, const char *key);
+char *search(hash_table *dict, const char *key);
