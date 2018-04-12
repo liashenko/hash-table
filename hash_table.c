@@ -18,6 +18,9 @@ unsigned int prehash(const char *key, const int prime, const int mod) {
  **/
 hash_table *create(const int capacity) {
   hash_table *dict = malloc(sizeof(hash_table));
+  if (dict == NULL) {
+    return NULL;
+  }
   dict->size = 0;
   dict->capacity = capacity;
   dict->items = malloc(dict->capacity * sizeof(item *));
