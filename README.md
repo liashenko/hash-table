@@ -1,5 +1,6 @@
 # hash-table
-Simple hash-table implementation in C. 
+Simple hash table implementation in C.
 
 ## TODO
-Implement hash chaining to handle unavoidable hash collisions.  
+- Implement double hashing to handle collisions
+- Dynamic memory allocation
